@@ -1,0 +1,283 @@
+header {
+    background: rgb(196, 196, 196);
+    margin-bottom: 50px;
+}
+
+body {
+    background: rgb(220, 219, 219);
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.cabecalho h1, form, a {
+    display: inline-block;
+    padding: 30px 30px;
+}
+
+.cabecalho h1 {
+    padding-right: 170px;
+    padding-left: 50px;
+    font-size: 20px;
+    display: inline;
+}
+
+.logo {
+    width: 10%;
+    display: inline-block;
+}
+
+.cabecalho form {
+    position: relative;
+}
+
+.cabecalho input {
+    border-radius: 12px;
+    border: none;
+    padding: 4px 6px;
+}
+
+.botao-busca img {
+    width: 15px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.botao-busca {
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 35px; right: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.cabecalho a:hover {
+    text-decoration: underline;
+}
+
+main {
+    width: 950px;
+    margin: 0 auto;
+}
+
+.caixa-noticia h2, h3 {
+    padding-bottom: 1em;
+    font-weight: bold;
+}
+
+.caixa-noticia {
+    background: white;
+    margin-bottom: 70px;
+    padding: 10px 12px;
+    width: 26%;
+    height: 300px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.caixa-noticia p {
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.butao-noticia {
+    padding: 5px 15px;
+}
+
+.botao-caixa {
+    position: absolute;
+    bottom: 15px;
+    padding: 0 40px;
+}
+
+.botao-caixa:hover {
+    transform: scale(1.1);
+}
+
+.botao-caixa button {
+    width: 200%;
+    border-radius: 7px;
+    border: none;
+    background: rgb(196, 196, 196);
+    padding: 5px 0;
+}
+
+.form-cadastro {
+    background: white;
+    padding: 10px 12px;
+    width: 80%;
+    height: 500px;
+    display: inline-block;
+    margin: 0 auto;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.form-cadastro input,select {
+    display: block;
+    margin: 10px 0;
+    width: 500px;
+    padding: 7px 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(169, 169, 169);
+}
+
+.form-cadastro textarea {
+    padding: 7px 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(169, 169, 169);
+    max-width: 500px;
+    max-height: 300px;
+}
+
+.form-cadastro button{
+    cursor: pointer;
+}
+
+.conteudo-completo {
+    background: white;
+    margin-bottom: 70px;
+    margin: 0 auto;
+    padding: 10px 12px;
+    display: inline-block;
+    position: relative;
+}
+
+.conteudo-completo h2 {
+    padding: 1em 0;
+    font-weight: bold;
+}
+
+.botao-editar {
+    padding: 10px 0;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.botao-editar button {
+    width: 80px;
+    border-radius: 7px;
+    border: none;
+    background: rgb(196, 196, 196);
+    padding: 5px 10px;
+}
+
+.botao-editar button:hover {
+    transform: scale(1.1);
+}
+
+.botao-editar a {
+    padding: 0;
+}
+
+.conteudo-excluir {
+    background: white;
+    margin-bottom: 70px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px 12px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+.conteudo-excluir h2 {
+    padding: 1em 0;
+    font-weight: bold;
+}
+
+.caixa-categoria {
+    background: white;
+    margin-bottom: 70px;
+    padding: 10px 12px;
+    width: 26%;
+    height: 150px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.caixa-categoria h2 {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    font-weight: bold;
+}
+
+.botao-caixa-categoria {
+    position: absolute;
+    bottom: 15px;
+    padding: 0 15px;
+}
+
+.botao-caixa-categoria:hover {
+    transform: scale(1.1);
+}
+
+.botao-caixa-categoria button {
+    width: 400%;
+    border-radius: 7px;
+    border: none;
+    background: rgb(196, 196, 196);
+    padding: 7px 0;
+}
+
+footer {
+    background: rgb(196, 196, 196);
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}
+
+@media screen and (max-width: 500px) {
+    main, footer, .caixa-noticia, .form-cadastro input, .form-cadastro select, .conteudo-excluir {
+        width: auto;
+    }
+
+    .logo {
+        width: 30%;
+    }
+
+    .cabecalho h1, a {
+        padding: 10px 30px;
+    }
+
+    .form-cadastro textarea {
+        width: 100%;
+    }
+
+    .conteudo-excluir, .conteudo-completo {
+        margin-bottom: 70px;
+    }
+
+    .botao-caixa {
+        padding: 15px;
+    }
+
+    footer {
+        position: static;
+        margin-top: 40px;
+        min-height: 30vh;
+    }
+
+    .cabecalho h1 {
+        padding-left: 10px;
+        padding-right: 0;
+        display: block;
+    }
+
+    .caixa-noticia p {
+        max-width: 200px;
+    }
+}
