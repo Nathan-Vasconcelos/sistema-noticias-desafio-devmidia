@@ -33,7 +33,7 @@ $noticia = $repositorioNoticias->umaNoticia($id);
                 <h2><?php echo $noticia->titulo(); ?></h2>
                 <h3><?php echo $noticia->categoria(); ?></h3>
                     <p>
-                        <?php echo $noticia->conteudo(); ?>
+                        <?php echo nl2br($noticia->conteudo()); ?>
                    </p>
                    <br>
                    <p>
