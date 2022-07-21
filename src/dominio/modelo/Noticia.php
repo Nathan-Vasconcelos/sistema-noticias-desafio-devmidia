@@ -12,8 +12,8 @@ class Noticia
     {
         $this->id = $id;
         $this->categoria = $categoria;
-        $this->titulo = $titulo;
-        $this->conteudo = $conteudo;
+        $this->titulo = $this->limpar($titulo);
+        $this->conteudo = $this->limpar($conteudo);
         $this->dataPublicacao = $dataPublicacao;
     }
 
@@ -53,5 +53,13 @@ class Noticia
     public function categoriaId(): int
     {
         return $this->categoria->id();
+    }
+
+    private function limpar($noticia)
+    {
+        $noticia = trim($noticia);
+        $noticia = htmlspecialchars($noticia);
+
+        return $noticia;
     }
 }
