@@ -10,6 +10,7 @@ $id = $_GET['id'];
 
 $conexao = Conexao::criarConexao();
 $repositorioNoticias = new RepositorioNoticias($conexao);
+$categoria = $repositorioNoticias->umaCategoria($id);
 
 ?>
 
@@ -40,7 +41,7 @@ $repositorioNoticias = new RepositorioNoticias($conexao);
     <main>
         <section class="conteudo-excluir">
             <form action="" method="post">
-                <h2>Deseja excluir a categoria Categoria qualquer?</h2>
+                <h2>Deseja excluir a categoria <?php echo $categoria->categoria(); ?>?</h2>
                 <div class="botao-editar">
                     <button><a href="categorias.php">Voltar</a></button>
                 </div>

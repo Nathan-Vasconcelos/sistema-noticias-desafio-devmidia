@@ -11,12 +11,15 @@ body {
 
 .cabecalho h1, form, a {
     display: inline-block;
-    padding: 30px 30px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 .cabecalho h1 {
-    padding-right: 170px;
-    padding-left: 50px;
+    padding-right: 120px;
+    padding-left: 30px;
     font-size: 20px;
     display: inline;
 }
@@ -28,6 +31,9 @@ body {
 
 .cabecalho form {
     position: relative;
+    display: block;
+    text-align: right;
+    margin-right: 100px;
 }
 
 .cabecalho input {
@@ -78,6 +84,7 @@ main {
     margin-left: 20px;
     margin-right: 20px;
     position: relative;
+    box-shadow: 0px 0px 20px rgb(174, 173, 173);
 }
 
 .caixa-noticia p {
@@ -240,6 +247,56 @@ footer {
     position: fixed;
 }
 
+.form-login {
+    background: white;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgb(174, 173, 173);
+}
+
+.form-login h1 {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.form-login input, select {
+    display: block;
+    width: 100%;
+    margin: 15px 0;
+    padding: 7px 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(169, 169, 169);
+}
+
+.botao-login {
+    width: 100%;
+    border-radius: 7px;
+    border: none;
+    background: rgb(196, 196, 196);
+    margin-top: 15px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.botao-login:hover{
+    transform: scale(1.1);
+}
+
+.erro-geral {
+    border: 1px solid;
+    border-radius: 5px;
+    background: rgb(198, 9, 9);
+    color: white;
+    padding: 10px 10px;
+    margin-bottom: 7px;
+}
+
+.erro {
+    color: rgb(198, 9, 9);
+}
+
 @media screen and (max-width: 500px) {
     main, footer, .caixa-noticia, .form-cadastro input, .form-cadastro select, .conteudo-excluir {
         width: auto;
@@ -251,6 +308,10 @@ footer {
 
     .cabecalho h1, a {
         padding: 10px 30px;
+    }
+
+    .cabecalho a {
+        display: block;
     }
 
     .form-cadastro textarea {
