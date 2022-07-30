@@ -4,9 +4,20 @@ require_once 'src/dominio/modelo/Noticia.php';
 require_once 'src/dominio/modelo/Categoria.php';
 require_once 'src/persistencia/Conexao.php';
 require_once 'src/repositorio/RepositorioNoticias.php';
+require_once 'src/dominio/modelo/Perfil.php';
+require_once 'src/dominio/modelo/Usuario.php';
+require_once 'src/repositorio/RepositorioUsuarios.php';
 require_once 'layout/cabecalho.html';
 
 $conexao = Conexao::criarConexao();
+
+$repositorioUsuarios = new RepositorioUsuarios($conexao);
+if (isset($_SESSION['TOKEN'])) {
+    $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
+} else {
+    header('location: login.php');
+}
+
 $repositorioNoticias = new RepositorioNoticias($conexao);
 $categorias = $repositorioNoticias->todasAsCategorias();
 

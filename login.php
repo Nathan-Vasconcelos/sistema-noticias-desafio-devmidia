@@ -1,5 +1,36 @@
+<?php
+
+//session_start();
+
+require_once 'src/persistencia/Conexao.php';
+require_once 'src/seguranca/Limpar.php';
+require_once 'src/dominio/modelo/Perfil.php';
+require_once 'src/dominio/modelo/Usuario.php';
+require_once 'src/repositorio/RepositorioUsuarios.php';
+
+$conexao = Conexao::criarConexao();
+$repositorioUsuarios = new RepositorioUsuarios($conexao);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (empty($_POST['email']) or empty($_POST['senha'])) {
+        $erroGeral = 'Todos os campos são obrigatórios';
+    } else {
+        $email = Limpar::limparPost($_POST['email']);
+        $senha = Limpar::limparPost($_POST['senha']);
+
+        $erroLogin = $repositorioUsuarios->login($email, $senha);
+
+        if ($erroLogin === FALSE) {
+            $erroGeral = 'E-mail ou senha inválido';
+        } else {
+            header('location: index.php');
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,13 +53,13 @@
         <section class="form-login">
             <form action="" method="post">
                 <h1>Login</h1>
-                <div class="erro-geral animate__animated animate__rubberBand">e-mail/senha inválido</div>
+                <?php if (isset($erroGeral)) : ?>
+                    <div class="erro-geral animate__animated animate__rubberBand"><?php echo $erroGeral; ?></div>
+                <?php endif ?>
                 <input type="email" name="email" placeholder="Digite seu e-mail" required>
                 <input type="password" name="senha" placeholder="Digite a senha" required>
                 <button type="submit" class="botao-login">Fazer login</button>
             </form>
         </section>
     </main>
-    <footer>DESENVOLVIDO POR PROGRAMADOR</footer>
-</body>
-</html>
+<?php require_once 'layout/footer.html'; ?>

@@ -9,6 +9,13 @@ require_once 'layout/cabecalho.html';
 
 $conexao = Conexao::criarConexao();
 $repositorioUsuarios = new RepositorioUsuarios($conexao);
+
+if (isset($_SESSION['TOKEN'])) {
+    $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
+} else {
+    header('location: login.php');
+}
+
 $perfis = $repositorioUsuarios->todosOsPerfis();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

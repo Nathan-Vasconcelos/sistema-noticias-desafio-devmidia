@@ -120,7 +120,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,1,'nome qualquer','teste@teste.com.br','123456',''),(2,1,'nome qualquer','teste@teste2.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(3,1,'nome qualquer','teste@teste3.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(4,1,'nome qualquer','teste@teste4.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(5,1,'nome qualquer','teste@teste5.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(6,2,'nome qualquer para user','teste@teste6.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b','');
+INSERT INTO `usuarios` VALUES (1,1,'nome qualquer','teste@teste.com.br','123456','123456'),(2,1,'nome qualquer','teste@teste2.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(3,1,'nome qualquer','teste@teste3.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(4,1,'nome qualquer','teste@teste4.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b',''),(5,1,'nome qualquer','teste@teste5.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b','cbac4c021e410ac16a3ba7e39ec6f506e7c03177'),(6,2,'nome qualquer para user','teste@teste6.com.br','7c4a8d09ca3762af61e59520943dc26494f8941b','');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -133,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-27 21:59:04
+-- Dump completed on 2022-07-30 18:13:20

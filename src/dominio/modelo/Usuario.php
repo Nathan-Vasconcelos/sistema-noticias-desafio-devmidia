@@ -46,9 +46,19 @@ class Usuario
         return sha1($this->senha);
     }
 
+    public function senhaBanco(): string
+    {
+        return $this->senha;
+    }
+
     public function token()
     {
         return $this->token;
+    }
+
+    public function definirToken($token) :void
+    {
+        $this->token = $token;
     }
 
     public function validarCadastro(): void
