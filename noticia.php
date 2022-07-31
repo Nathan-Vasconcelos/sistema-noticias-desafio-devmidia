@@ -4,7 +4,7 @@ require_once 'src/dominio/modelo/Noticia.php';
 require_once 'src/dominio/modelo/Categoria.php';
 require_once 'src/persistencia/Conexao.php';
 require_once 'src/repositorio/RepositorioNoticias.php';
-require_once 'layout/cabecalho.html';
+require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
 $repositorioNoticias = new RepositorioNoticias($conexao);
@@ -39,12 +39,14 @@ $noticia = $repositorioNoticias->umaNoticia($id);
                    <p>
                     Data: <?php echo $noticia->dataPublicacao(); ?>
                    </p>
-                <div class="botao-editar">
-                    <button><a href="editar.php?id=<?php  echo $noticia->id(); ?>">Editar</a></button>
-                </div>
-                <div class="botao-editar">
-                    <button><a href="excluir.php?id=<?php  echo $noticia->id(); ?>">Excluir</a></button>
-                </div>
+                <?php if (isset($_SESSION['TOKEN'])) : ?>
+                    <div class="botao-editar">
+                        <button><a href="editar.php?id=<?php  echo $noticia->id(); ?>">Editar</a></button>
+                    </div>
+                    <div class="botao-editar">
+                        <button><a href="excluir.php?id=<?php  echo $noticia->id(); ?>">Excluir</a></button>
+                    </div>
+                <?php endif ?>
         </section>
     </main>
 <?php require_once 'layout/footer.html'; ?>

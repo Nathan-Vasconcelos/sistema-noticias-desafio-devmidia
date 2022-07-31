@@ -4,7 +4,7 @@ require_once 'src/dominio/modelo/Noticia.php';
 require_once 'src/dominio/modelo/Categoria.php';
 require_once 'src/persistencia/Conexao.php';
 require_once 'src/repositorio/RepositorioNoticias.php';
-require_once 'layout/cabecalho.html';
+require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
 $repositorioNoticias = new RepositorioNoticias($conexao);

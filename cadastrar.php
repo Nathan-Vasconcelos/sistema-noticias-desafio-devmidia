@@ -7,7 +7,7 @@ require_once 'src/repositorio/RepositorioNoticias.php';
 require_once 'src/dominio/modelo/Perfil.php';
 require_once 'src/dominio/modelo/Usuario.php';
 require_once 'src/repositorio/RepositorioUsuarios.php';
-require_once 'layout/cabecalho.html';
+require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
 
