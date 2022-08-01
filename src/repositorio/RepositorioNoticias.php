@@ -12,7 +12,7 @@ class RepositorioNoticias
     public function todasAsNoticias(): array
     {
         $sql = 'SELECT noticias.id, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
-        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id;';
+        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id ORDER BY noticias.data_publicacao DESC;';
         
         $consulta = $this->conexao->query($sql);
 
@@ -64,7 +64,7 @@ class RepositorioNoticias
         $palavra = '%' . $palavra . '%';
 
         $sql = "SELECT noticias.id, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
-        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id WHERE noticias.titulo LIKE :palavra OR  categorias.nome LIKE :palavra;";
+        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id WHERE noticias.titulo LIKE :palavra OR  categorias.nome LIKE :palavra ORDER BY noticias.data_publicacao DESC;";
 
         $consulta = $this->conexao->prepare($sql);
         $consulta->bindValue(':palavra', $palavra);
