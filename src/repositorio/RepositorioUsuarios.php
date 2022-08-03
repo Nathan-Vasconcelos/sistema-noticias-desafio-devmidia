@@ -121,6 +121,13 @@ class RepositorioUsuarios
 
         //colocar o usuario na sessão
         $_SESSION['TOKEN'] = $usuario->token();
+        //colocar os dados do usuario na sessão
+        $_SESSION['ID_PERFIL'] = $usuario->idPerfil();
+        $_SESSION['PERFIL'] = $usuario->nomePerfil();
+        $_SESSION['ID_USUARIO'] = $usuario->id();
+        $_SESSION['NOME_USUARIO'] = $usuario->nome();
+        $_SESSION['EMAIL_USUARIO'] = $usuario->email();
+        $_SESSION['SENHA_USUARIO'] = $usuario->senhaBanco();
     }
 
     public function autenticarToken($token)

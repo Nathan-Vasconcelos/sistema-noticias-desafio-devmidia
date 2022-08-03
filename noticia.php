@@ -4,6 +4,9 @@ require_once 'src/dominio/modelo/Noticia.php';
 require_once 'src/dominio/modelo/Categoria.php';
 require_once 'src/persistencia/Conexao.php';
 require_once 'src/repositorio/RepositorioNoticias.php';
+require_once 'src/dominio/modelo/Perfil.php';
+require_once 'src/dominio/modelo/Usuario.php';
+require_once 'src/repositorio/RepositorioUsuarios.php';
 require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
@@ -32,6 +35,9 @@ $noticia = $repositorioNoticias->umaNoticia($id);
         <section class="conteudo-completo">
                 <h2><?php echo $noticia->titulo(); ?></h2>
                 <h3><?php echo $noticia->categoria(); ?></h3>
+                <?php if (isset($_SESSION['TOKEN'])) : ?>
+                    <h3>Postado por: <?php echo $noticia->usuarioNome(); ?></h3>
+                <?php endif ?>
                     <p>
                         <?php echo nl2br($noticia->conteudo()); ?>
                    </p>

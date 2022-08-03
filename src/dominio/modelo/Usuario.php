@@ -31,6 +31,11 @@ class Usuario
         return $this->perfil->id();
     }
 
+    public function nomePerfil(): string
+    {
+        return $this->perfil->perfil();
+    }
+
     public function nome(): string
     {
         return $this->nome;

@@ -3,6 +3,7 @@
 class Noticia
 {
     private $id;
+    private $usuario;
     private $categoria;
     private $titulo;
     private $conteudo;
@@ -53,6 +54,21 @@ class Noticia
     public function categoriaId(): int
     {
         return $this->categoria->id();
+    }
+
+    public function recebeUsuario($usuario): void
+    {
+        $this->usuario = $usuario;
+    }
+
+    public function usuarioNome(): string
+    {
+        return $this->usuario->nome();
+    }
+
+    public function usuarioId()
+    {
+        return $this->usuario->id();
     }
 
     private function limpar($noticia)

@@ -25,10 +25,13 @@ $categorias = $repositorioNoticias->todasAsCategorias();
 <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
     <?php
 
+    $usuario = new Usuario($_SESSION['ID_USUARIO'], new Perfil($_SESSION['ID_PERFIL'], $_SESSION['PERFIL']), $_SESSION['NOME_USUARIO'], $_SESSION['EMAIL_USUARIO'], $_SESSION['SENHA_USUARIO']);
+
     date_default_timezone_set('America/Sao_Paulo');
     $dataPublicacao = date('Y-m-d');
     $categoria = $repositorioNoticias->umaCategoria($_POST['Categoria']);
     $noticia = new Noticia(null, new Categoria($categoria->id(), $categoria->categoria()), $_POST['titulo'], $_POST['conteudo'], $dataPublicacao);
+    $noticia->recebeUsuario($usuario);
 
     $noticiaSalva = $repositorioNoticias->salvarNoticia($noticia);
 

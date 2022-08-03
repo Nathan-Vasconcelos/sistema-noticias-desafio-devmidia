@@ -21,8 +21,11 @@ class RepositorioNoticias
 
     public function umaNoticia($id): Noticia
     {
-        $sql = "SELECT noticias.id, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
-        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id WHERE noticias.id = :id;";
+        /*$sql = "SELECT noticias.id, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
+        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id WHERE noticias.id = :id;";*/
+
+        $sql = "SELECT noticias.id, perfis.id AS id_do_perfil, perfis.nome AS perfil, usuarios.id AS id_do_usuario, usuarios.nome AS usuario, usuarios.email AS email_do_usuario, usuarios.senha AS senha_do_usuario, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
+        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id JOIN usuarios ON noticias.id_usuario = usuarios.id JOIN perfis ON id_perfil = perfis.id WHERE noticias.id = :id;";
 
         $consulta = $this->conexao->prepare($sql);
         $consulta->bindValue(':id', $id);
@@ -36,6 +39,10 @@ class RepositorioNoticias
             $dadosNoticia['conteudo'],
             $dadosNoticia['data_publicacao']
         );
+
+        $perfil = new \Perfil($dadosNoticia['id_do_perfil'], $dadosNoticia['perfil']);
+        $usuario = new \Usuario($dadosNoticia['id_do_usuario'], $perfil, $dadosNoticia['usuario'], $dadosNoticia['email_do_usuario'], $dadosNoticia['senha_do_usuario']);
+        $noticia->recebeUsuario($usuario);
 
         return $noticia;
     }
@@ -101,11 +108,12 @@ class RepositorioNoticias
 
     private function cadastrarNoticia(Noticia $noticia)
     {
-        $sql = "INSERT INTO noticias (id_categoria, titulo, conteudo, data_publicacao) VALUES
-        (:id_categoria, :titulo, :conteudo, :data_publicacao);";
+        $sql = "INSERT INTO noticias (id_usuario, id_categoria, titulo, conteudo, data_publicacao) VALUES
+        (:id_usuario, :id_categoria, :titulo, :conteudo, :data_publicacao);";
 
         $consulta = $this->conexao->prepare($sql);
 
+        $consulta->bindValue(':id_usuario', $noticia->usuarioId());
         $consulta->bindValue(':id_categoria', $noticia->categoriaId());
         $consulta->bindValue(':titulo', $noticia->titulo());
         $consulta->bindValue(':conteudo', $noticia->conteudo());
