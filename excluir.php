@@ -13,6 +13,7 @@ $id = $_GET['id'];
 
 $conexao = Conexao::criarConexao();
 $repositorioNoticias = new RepositorioNoticias($conexao);
+$noticia = $repositorioNoticias->umaNoticia($id);
 
 $repositorioUsuarios = new RepositorioUsuarios($conexao);
 if (isset($_SESSION['TOKEN'])) {
@@ -47,7 +48,7 @@ if (isset($_SESSION['TOKEN'])) {
     <main>
         <section class="conteudo-excluir">
             <form action="" method="post">
-                    <h2>Deseja excluir a noticia Noticia qualquer?</h2>
+                    <h2>Deseja excluir a noticia <?php echo $noticia->titulo(); ?>?</h2>
                     <div class="botao-editar">
                         <button><a href="noticia.php?id=<?php echo $id; ?>">Voltar</a></button>
                     </div>

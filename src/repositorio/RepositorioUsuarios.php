@@ -45,6 +45,25 @@ class RepositorioUsuarios
         return $perfil;
     }
 
+    public function buscarUsuarioPorToken($token): Usuario
+    {
+        $sql = 'SELECT usuarios.id, perfis.id AS id_do_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha FROM usuarios JOIN perfis ON usuarios.id_perfil = perfis.id WHERE token = :token LIMIT 1;';
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':token', $token);
+        $consulta->execute();
+
+        $dadosUsuario = $consulta->fetch(PDO::FETCH_ASSOC);
+        $usuario = new \Usuario(
+            $dadosUsuario['id'],
+            new \Perfil($dadosUsuario['id_do_perfil'], $dadosUsuario['perfil']),
+            $dadosUsuario['nome'],
+            $dadosUsuario['email'],
+            $dadosUsuario['senha']
+        );
+
+        return $usuario;
+    }
+
     public function verificarEmail($novoUsuario)
     {
         //verificar se o email já está cadastrado
@@ -119,15 +138,8 @@ class RepositorioUsuarios
         $consulta->bindValue(':senha', $usuario->senhaBanco());
         $consulta->execute();
 
-        //colocar o usuario na sessão
+        //colocar o token na sessão
         $_SESSION['TOKEN'] = $usuario->token();
-        //colocar os dados do usuario na sessão
-        $_SESSION['ID_PERFIL'] = $usuario->idPerfil();
-        $_SESSION['PERFIL'] = $usuario->nomePerfil();
-        $_SESSION['ID_USUARIO'] = $usuario->id();
-        $_SESSION['NOME_USUARIO'] = $usuario->nome();
-        $_SESSION['EMAIL_USUARIO'] = $usuario->email();
-        $_SESSION['SENHA_USUARIO'] = $usuario->senhaBanco();
     }
 
     public function autenticarToken($token)
