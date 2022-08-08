@@ -8,6 +8,7 @@ class Usuario
     private $email;
     private $senha;
     private $token;
+    private $noticias;
     public $erro;
 
     public function __construct(?int $id, Perfil $perfil, string $nome, string $email, string $senha)
@@ -61,9 +62,19 @@ class Usuario
         return $this->token;
     }
 
+    public function noticias()
+    {
+        return $this->noticias;
+    }
+
     public function definirToken($token) :void
     {
         $this->token = $token;
+    }
+
+    public function definirNoticias($noticias): void
+    {
+        $this->noticias = $noticias;
     }
 
     public function validarCadastro(): void

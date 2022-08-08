@@ -45,6 +45,38 @@ class RepositorioUsuarios
         return $perfil;
     }
 
+    public function contarNoticiasDosUsuarios(): array
+    {
+        $sql = 'SELECT noticias.id, noticias.id_usuario, usuarios.id_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha, count(noticias.id_usuario) AS noticias FROM noticias JOIN usuarios ON noticias.id_usuario = usuarios.id JOIN perfis ON usuarios.id_perfil = perfis.id GROUP BY noticias.id_usuario;';
+        $consulta = $this->conexao->query($sql);
+
+        return $this->hidratarListaUsuarios($consulta);
+    }
+
+    private function hidratarListaUsuarios($consulta): array
+    {
+        $listaDadosUsuarios = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        $listaUsuarios = [];
+
+        foreach ($listaDadosUsuarios as $dadosUsuario) {
+            $usuario = new \Usuario(
+                $dadosUsuario['id_usuario'],
+                new \Perfil($dadosUsuario['id_perfil'], $dadosUsuario['perfil']),
+                $dadosUsuario['nome'],
+                $dadosUsuario['email'],
+                $dadosUsuario['senha']
+            );
+
+            if(isset($dadosUsuario['noticias'])) {
+                $usuario->definirNoticias($dadosUsuario['noticias']);
+            }
+
+            $listaUsuarios[] = $usuario;
+        }
+
+        return $listaUsuarios;
+    }
+
     public function buscarUsuarioPorToken($token): Usuario
     {
         $sql = 'SELECT usuarios.id, perfis.id AS id_do_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha FROM usuarios JOIN perfis ON usuarios.id_perfil = perfis.id WHERE token = :token LIMIT 1;';

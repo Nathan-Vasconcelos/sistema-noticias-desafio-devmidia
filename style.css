@@ -298,7 +298,39 @@ footer {
     color: rgb(198, 9, 9);
 }
 
-@media screen and (max-width: 500px) {
+table {
+    margin: 20px 0 40px;
+}
+
+thead {
+    background: rgb(196, 196, 196);
+    color: white;
+    font-weight: bold;
+}
+
+td, th {
+    border: 1px solid rgb(169, 169, 169);;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+td a {
+    padding: 0;
+}
+
+td button {
+    width: 80px;
+    border-radius: 7px;
+    border: none;
+    background: rgb(196, 196, 196);
+    padding: 5px 10px;
+}
+
+td button:hover {
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 768px) {
     main, footer, .caixa-noticia, .form-cadastro input, .form-cadastro select, .conteudo-excluir {
         width: auto;
     }
@@ -342,4 +374,13 @@ footer {
     .caixa-noticia p {
         max-width: 200px;
     }
+
+    .nao-necessario {
+        display: none;
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
 }
