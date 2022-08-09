@@ -7,6 +7,13 @@ require_once 'src/repositorio/RepositorioUsuarios.php';
 
 $conexao = Conexao::criarConexao();
 $repositorioUsuarios = new RepositorioUsuarios($conexao);
+
+if (isset($_SESSION['TOKEN'])) {
+    $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
+} else {
+    header('location: login.php');
+}
+
 $usuarios = $repositorioUsuarios->contarNoticiasDosUsuarios();
 
 ?>
@@ -31,7 +38,7 @@ $usuarios = $repositorioUsuarios->contarNoticiasDosUsuarios();
             <thead><th>ID</th><th>PERFIL</th><th>NOME</th><th class="nao-necessario">E-MAIL</th><th>NOTICIAS POSTADAS</th><th class="nao-necessario">EDITAR</th><th>EXCLUIR</th></thead>
             <tbody>
                 <?php foreach ($usuarios as $usuario) : ?>
-                    <tr><td><a href="editar-usuario.html"><?php echo $usuario->id(); ?></a></td><td><a href="editar-usuario.html"><?php echo $usuario->nomePerfil(); ?></a></td><td><a href="editar-usuario.html"><?php echo $usuario->nome(); ?></a></td><td class="nao-necessario"><?php echo $usuario->email(); ?></td><td><a href=""><?php echo $usuario->noticias(); ?></a></td><td class="nao-necessario"><button><a href="editar-usuario.html">Editar</a></button></td><td><button><a href="excluir-usuario.html">Excluir</a></button></td></tr>
+                    <tr><td><a href="editar-usuario.html"><?php echo $usuario->id(); ?></a></td><td><a href="editar-usuario.html"><?php echo $usuario->nomePerfil(); ?></a></td><td><a href="editar-usuario.html"><?php echo $usuario->nome(); ?></a></td><td class="nao-necessario"><?php echo $usuario->email(); ?></td><td><a href="index.php?usuario=<?php echo $usuario->id(); ?>"><?php echo $usuario->noticias(); ?></a></td><td class="nao-necessario"><button><a href="editar-usuario.html">Editar</a></button></td><td><button><a href="excluir-usuario.html">Excluir</a></button></td></tr>
                 <?php endforeach ?>
             </tbody>
         </table>

@@ -4,15 +4,27 @@ require_once 'src/dominio/modelo/Noticia.php';
 require_once 'src/dominio/modelo/Categoria.php';
 require_once 'src/persistencia/Conexao.php';
 require_once 'src/repositorio/RepositorioNoticias.php';
+require_once 'src/dominio/modelo/Perfil.php';
+require_once 'src/dominio/modelo/Usuario.php';
+require_once 'src/repositorio/RepositorioUsuarios.php';
 require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
 $repositorioNoticias = new RepositorioNoticias($conexao);
+$repositorioUsuarios = new RepositorioUsuarios($conexao);
 
 if (isset($_GET['busca']) and $_GET['busca'] != '') {
     //implementar validações
     $noticias = $repositorioNoticias->pesquisarNoticia($_GET['busca']);
+} /*else {
+    $noticias = $repositorioNoticias->todasAsNoticias();
+}*/
+
+if (isset($_SESSION['TOKEN']) and isset($_GET['usuario'])) {
+    $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
+    $noticias = $repositorioNoticias->noticiasDoUsuario($_GET['usuario']);
 } else {
+    //header('location: login.php');
     $noticias = $repositorioNoticias->todasAsNoticias();
 }
 

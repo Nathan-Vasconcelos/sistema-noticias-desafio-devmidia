@@ -82,6 +82,18 @@ class RepositorioNoticias
         return $this->hidratarListaNoticias($consulta);
     }
 
+    public function noticiasDoUsuario($idUsuario): array
+    {
+        $sql = 'SELECT noticias.id, categorias.id AS id_da_categoria, categorias.nome AS categoria, noticias.titulo, noticias.conteudo, noticias.data_publicacao
+        FROM noticias JOIN categorias ON noticias.id_categoria = categorias.id where id_usuario = :id_usuario ORDER BY noticias.data_publicacao DESC;';
+
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':id_usuario', $idUsuario);
+        $consulta->execute();
+
+        return $this->hidratarListaNoticias($consulta);
+    }
+
     public function salvarNoticia(Noticia $noticia)
     {
         if ($noticia->id() == null) {
