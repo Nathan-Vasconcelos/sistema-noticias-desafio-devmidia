@@ -23,8 +23,11 @@ if (isset($_GET['busca']) and $_GET['busca'] != '') {
 if (isset($_SESSION['TOKEN']) and isset($_GET['usuario'])) {
     $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
     $noticias = $repositorioNoticias->noticiasDoUsuario($_GET['usuario']);
-} else {
+} /*else {
     //header('location: login.php');
+    $noticias = $repositorioNoticias->todasAsNoticias();
+}*/
+if (!isset($_GET['busca']) and !isset($_GET['usuario'])) {
     $noticias = $repositorioNoticias->todasAsNoticias();
 }
 
