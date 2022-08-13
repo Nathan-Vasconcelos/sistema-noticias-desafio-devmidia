@@ -87,4 +87,11 @@ class Usuario
             $this->erro['erro_senha'] = 'A senha deve ter no mínimo 6 dígitos!';
         }
     }
+
+    public function validarEmail(): void
+    {
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $this->erro['erro_email'] = 'E-mail inválido!';
+        }
+    }
 }

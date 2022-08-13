@@ -96,6 +96,25 @@ class RepositorioUsuarios
         return $usuario;
     }
 
+    public function buscarUsuarioPorId($id): Usuario
+    {
+        $sql = 'SELECT usuarios.id, perfis.id AS id_do_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha FROM usuarios JOIN perfis ON usuarios.id_perfil = perfis.id WHERE usuarios.id = :id LIMIT 1;';
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':id', $id);
+        $consulta->execute();
+
+        $dadosUsuario = $consulta->fetch(PDO::FETCH_ASSOC);
+        $usuario = new \Usuario(
+            $dadosUsuario['id'],
+            new \Perfil($dadosUsuario['id_do_perfil'], $dadosUsuario['perfil']),
+            $dadosUsuario['nome'],
+            $dadosUsuario['email'],
+            $dadosUsuario['senha']
+        );
+
+        return $usuario;
+    }
+
     public function verificarEmail($novoUsuario)
     {
         //verificar se o email já está cadastrado
@@ -112,6 +131,18 @@ class RepositorioUsuarios
         } else {
             return FALSE;
         }
+    }
+
+    public function editarUsuario($usuario): void
+    {
+        $sql = 'UPDATE usuarios SET id_perfil = :id_perfil, nome = :nome, email = :email WHERE id = :id;';
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':id_perfil', $usuario->idPerfil());
+        $consulta->bindValue(':nome', $usuario->nome());
+        $consulta->bindValue(':email', $usuario->email());
+        $consulta->bindValue(':id', $usuario->id());
+
+        $consulta->execute();
     }
 
     private function cadastrarUsuario($novoUsuario)
