@@ -14,7 +14,13 @@ if (isset($_SESSION['TOKEN'])) {
     header('location: login.php');
 }
 
-$usuarios = $repositorioUsuarios->contarNoticiasDosUsuarios();
+$usuarios = $repositorioUsuarios->todosOsUsuarios();
+
+$usuariosComNoticias = $repositorioUsuarios->contarNoticiasDosUsuarios();
+$listaIds = [];
+foreach ($usuariosComNoticias as $usuarioComNoticias) {
+    $listaIds[] = $usuarioComNoticias->id();
+}
 
 ?>
 <!DOCTYPE html>
@@ -29,19 +35,20 @@ $usuarios = $repositorioUsuarios->contarNoticiasDosUsuarios();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Noto+Sans&display=swap" rel="stylesheet">
-    <title>Usuários</title>
+    <title>Usuários sem notícias</title>
 </head>
 <body>
     <header class="cabecalho"><h1><img src="https://imgs.search.brave.com/75uk1O7iw7k1WkwUlrEVxhB7Dv5jooCt2Rc9-F2XZu8/rs:fit:1200:419:1/g:ce/aHR0cDovL3d3dy5k/ZXZtZWRpYS5jb20u/YnIvam9pbi9pbWFn/ZXMvbG9nby1kZXZt/ZWRpYS5wbmc" alt="logo" class="logo"></h1><a href="cadastrar-usuario.php">CADASTRAR USUÁRIO</a> <a href="categorias.php">CATEGORIAS</a> <a href="cadastrar-categoria.php">CADASTRAR CATEGORIA</a> <a href="cadastrar.php">CADASTRAR NOTICIAS</a> <a href="index.php">EXIBIR NOTICIAS</a> <a href="logout.php">SAIR</a> <form action=""><input type="search"><button type="submit" class="botao-busca"><img src="img/Desenho-Lupa-PNG.png" alt=""></button></form></header>
     <main>
         <table>
-            <thead><th>ID</th><th>PERFIL</th><th>NOME</th><th class="nao-necessario">E-MAIL</th><th>NOTICIAS POSTADAS</th><th class="nao-necessario">EDITAR</th></thead>
+            <thead><th>ID</th><th>PERFIL</th><th>NOME</th><th class="nao-necessario">E-MAIL</th><th class="nao-necessario">EDITAR</th><th>EXCLUIR</th></thead>
             <tbody>
                 <?php foreach ($usuarios as $usuario) : ?>
-                    <tr><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->id(); ?></a></td><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->nomePerfil(); ?></a></td><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->nome(); ?></a></td><td class="nao-necessario"><?php echo $usuario->email(); ?></td><td><a href="index.php?usuario=<?php echo $usuario->id(); ?>"><?php echo $usuario->noticias(); ?></a></td><td class="nao-necessario"><button><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>">Editar</a></button></td></tr>
+                    <?php if (!in_array($usuario->id(), $listaIds)) : ?> 
+                        <tr><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->id(); ?></a></td><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->nomePerfil(); ?></a></td><td><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>"><?php echo $usuario->nome(); ?></a></td><td class="nao-necessario"><?php echo $usuario->email(); ?></td><td class="nao-necessario"><button><a href="editar-usuario.php?id=<?php echo $usuario->id(); ?>">Editar</a></button></td><td><button><a href="excluir-usuario.php?id=<?php echo $usuario->id(); ?>">Excluir</a></button></td></tr>
+                    <?php endif ?>
                 <?php endforeach ?>
             </tbody>
         </table>
-        <div class="div-link-usuarios-semnoticia"><a href="usuarios-sem-noticias.php" class="usuarios-sem-noticia">Usuários sem notícias</a></div>
     </main>
 <?php require_once 'layout/footer.html'; ?>

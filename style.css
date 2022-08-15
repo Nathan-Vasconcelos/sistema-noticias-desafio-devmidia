@@ -309,7 +309,7 @@ thead {
 }
 
 td, th {
-    border: 1px solid rgb(169, 169, 169);;
+    border: 1px solid rgb(169, 169, 169);
     padding: 8px 10px;
     text-align: center;
 }
@@ -328,6 +328,19 @@ td button {
 
 td button:hover {
     transform: scale(1.1);
+}
+
+.div-link-usuarios-semnoticia {
+    margin: 2em auto;
+    width: 50%;
+}
+
+.usuarios-sem-noticia {
+    font-weight: bold;
+}
+
+.usuarios-sem-noticia:hover {
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 768px) {

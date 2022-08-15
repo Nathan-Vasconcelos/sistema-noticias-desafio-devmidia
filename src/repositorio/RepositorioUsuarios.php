@@ -45,6 +45,14 @@ class RepositorioUsuarios
         return $perfil;
     }
 
+    public function todosOsUsuarios(): array
+    {
+        $sql = 'SELECT usuarios.id AS id_usuario, perfis.id AS id_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha FROM usuarios JOIN perfis ON usuarios.id_perfil = perfis.id;';
+        $consulta = $this->conexao->query($sql);
+
+        return $this->hidratarListaUsuarios($consulta);
+    }
+
     public function contarNoticiasDosUsuarios(): array
     {
         $sql = 'SELECT noticias.id, noticias.id_usuario, usuarios.id_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha, count(noticias.id_usuario) AS noticias FROM noticias JOIN usuarios ON noticias.id_usuario = usuarios.id JOIN perfis ON usuarios.id_perfil = perfis.id GROUP BY noticias.id_usuario;';
@@ -113,6 +121,15 @@ class RepositorioUsuarios
         );
 
         return $usuario;
+    }
+
+    public function removerUsuario($id)
+    {
+        $sql = 'DELETE FROM usuarios WHERE id = :id;';
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':id', $id);
+
+        $consulta->execute();
     }
 
     public function verificarEmail($novoUsuario)
