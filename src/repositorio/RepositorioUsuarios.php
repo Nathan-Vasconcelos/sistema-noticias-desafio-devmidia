@@ -132,6 +132,24 @@ class RepositorioUsuarios
         $consulta->execute();
     }
 
+    public function verificarEmailDoUsuario($usuarioEditado)
+    {
+        $sql = 'SELECT * FROM usuarios WHERE email = :email AND id != :id LIMIT 1;';
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(':email', $usuarioEditado->email());
+        $consulta->bindValue(':id', $usuarioEditado->id());
+        $consulta->execute();
+
+        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        if (!$usuario) {
+            //se não existir esse usuário cadastrado
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function verificarEmail($novoUsuario)
     {
         //verificar se o email já está cadastrado

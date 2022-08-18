@@ -34,9 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $usuarioEditado->validarEmail();
 
         if (empty($usuarioEditado->erro)) {
-            //editar
-            $repositorioUsuarios->editarUsuario($usuarioEditado);
-            header('location: usuarios.php');
+            $emailValido = $repositorioUsuarios->verificarEmailDoUsuario($usuarioEditado);
+
+            if ($emailValido === FALSE) {
+                $erroGeral = 'Já existe um usuário com esse e-mail';
+            } else {
+                $repositorioUsuarios->editarUsuario($usuarioEditado);
+                header('location: usuarios.php');
+            }
+            
         }
     }
 }
