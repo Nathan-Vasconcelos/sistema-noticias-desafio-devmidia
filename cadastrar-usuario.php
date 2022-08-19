@@ -5,6 +5,7 @@ require_once 'src/seguranca/Limpar.php';
 require_once 'src/dominio/modelo/Perfil.php';
 require_once 'src/dominio/modelo/Usuario.php';
 require_once 'src/repositorio/RepositorioUsuarios.php';
+require_once 'src/controleUsuario/ControleUsuario.php';
 require_once 'layout/cabecalho.php';
 
 $conexao = Conexao::criarConexao();
@@ -15,6 +16,9 @@ if (isset($_SESSION['TOKEN'])) {
 } else {
     header('location: login.php');
 }
+
+$controleUsuario = new ControleUsuario($_SESSION['TOKEN'], $repositorioUsuarios);
+$controleUsuario->somenteAdm();
 
 $perfis = $repositorioUsuarios->todosOsPerfis();
 

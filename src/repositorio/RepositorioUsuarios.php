@@ -55,7 +55,7 @@ class RepositorioUsuarios
 
     public function contarNoticiasDosUsuarios(): array
     {
-        $sql = 'SELECT noticias.id, noticias.id_usuario, usuarios.id_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha, count(noticias.id_usuario) AS noticias FROM noticias JOIN usuarios ON noticias.id_usuario = usuarios.id JOIN perfis ON usuarios.id_perfil = perfis.id GROUP BY noticias.id_usuario;';
+        $sql = 'SELECT noticias.id, noticias.id_usuario, usuarios.id_perfil, perfis.nome AS perfil, usuarios.nome, usuarios.email, usuarios.senha, count(noticias.id_usuario) AS noticias FROM noticias JOIN usuarios ON noticias.id_usuario = usuarios.id JOIN perfis ON usuarios.id_perfil = perfis.id GROUP BY noticias.id_usuario DESC;';
         $consulta = $this->conexao->query($sql);
 
         return $this->hidratarListaUsuarios($consulta);
