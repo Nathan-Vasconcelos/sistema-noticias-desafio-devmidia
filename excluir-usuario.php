@@ -22,6 +22,15 @@ $id = $_GET['id'];
 $usuario = $repositorioUsuarios->buscarUsuarioPorId($id);
 
 ?>
+<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
+    <?php $permitirExcluri = $controleUsuario->negarAlteracaoAdm($usuario); ?>
+    <?php if ($permitirExcluri) : ?>
+        <?php $repositorioUsuarios->removerUsuario($_POST['id']); ?>
+        <?php header('location: usuarios-sem-noticias.php'); ?>
+    <?php else : ?>
+        <script>window.alert('Não é possível excluir um usuário adm');</script>
+    <?php endif ?>
+<?php endif ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -39,13 +48,16 @@ $usuario = $repositorioUsuarios->buscarUsuarioPorId($id);
     <header class="cabecalho"><h1><img src="https://imgs.search.brave.com/75uk1O7iw7k1WkwUlrEVxhB7Dv5jooCt2Rc9-F2XZu8/rs:fit:1200:419:1/g:ce/aHR0cDovL3d3dy5k/ZXZtZWRpYS5jb20u/YnIvam9pbi9pbWFn/ZXMvbG9nby1kZXZt/ZWRpYS5wbmc" alt="logo" class="logo"></h1><a href="categorias.html">CATEGORIAS</a> <a href="cadastrar-categoria.html">CADASTRAR CATEGORIA</a> <a href="cadastrar.html">CADASTRAR NOTICIAS</a> <a href="index.html">EXIBIR NOTICIAS</a> <form action=""><input type="search"><button type="submit" class="botao-busca"><img src="Desenho-Lupa-PNG.png" alt=""></button></form></header>
     <main>
         <section class="conteudo-excluir">
-                <h2>Deseja excluir o usuário <?php echo $usuario->nome(); ?>?</h2>
-                <div class="botao-editar">
-                    <button><a href="usuarios.php">Voltar</a></button>
-                </div>
-                <div class="botao-editar">
-                    <button type="submit">Excluir</button>
-                </div>
+            <form action="" method="post">
+                    <h2>Deseja excluir o usuário <?php echo $usuario->nome(); ?>?</h2>
+                    <div class="botao-editar">
+                        <button><a href="usuarios-sem-noticias.php">Voltar</a></button>
+                    </div>
+                    <div class="botao-editar">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                        <button type="submit">Excluir</button>
+                    </div>
+            </form>
         </section>
     </main>
 <?php require_once 'layout/footer.html'; ?>

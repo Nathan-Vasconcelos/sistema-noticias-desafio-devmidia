@@ -10,6 +10,7 @@ class ControleUsuario
     {
         $this->token = $token;
         $this->repositorio = $repositorio;
+        //$this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
     }
 
     public function somenteAdm()
@@ -31,6 +32,16 @@ class ControleUsuario
             return True;
         } else {
             header('location: login.php');
+        }
+    }
+
+    public function negarAlteracaoAdm($usuarioParaAlterar)
+    {
+        if ($usuarioParaAlterar->idPerfil() === 1) {
+            //header('location: login.php');
+            return False;
+        } else {
+            return True;
         }
     }
 
