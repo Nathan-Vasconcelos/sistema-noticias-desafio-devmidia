@@ -45,4 +45,15 @@ class ControleUsuario
         }
     }
 
+    public function apenasAdmEAltor($idUsuarioNoticia)
+    {
+        $this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
+
+        if ($this->usuario->id() === $idUsuarioNoticia or $this->usuario->idPerfil() === 1) {
+            return True;
+        } else {
+            return False;
+        }
+    }
+
 }

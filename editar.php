@@ -7,6 +7,7 @@ require_once 'src/repositorio/RepositorioNoticias.php';
 require_once 'src/dominio/modelo/Perfil.php';
 require_once 'src/dominio/modelo/Usuario.php';
 require_once 'src/repositorio/RepositorioUsuarios.php';
+require_once 'src/controleUsuario/ControleUsuario.php';
 require_once 'layout/cabecalho.php';
 
 $id = $_GET['id'];
@@ -22,22 +23,28 @@ if (isset($_SESSION['TOKEN'])) {
 }
 
 $noticia = $repositorioNoticias->umaNoticia($id);
-
 $categorias = $repositorioNoticias->todasAsCategorias();
+
+$controleUsuario = new ControleUsuario($_SESSION['TOKEN'], $repositorioUsuarios);
+$permitirAlterar = $controleUsuario->apenasAdmEAltor($noticia->usuarioId());
 
 ?>
 <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
-    <?php
+    <?php if ($permitirAlterar) : ?>
+        <?php
 
-    $categoria = $repositorioNoticias->umaCategoria($_POST['Categoria']);
-    $noticiaEditada = new Noticia($id, new Categoria($categoria->id(), $categoria->categoria()), $_POST['titulo'], $_POST['conteudo'], $noticia->dataPublicacaoPadrao());
-    $noticiaSalva = $repositorioNoticias->salvarNoticia($noticiaEditada);
+        $categoria = $repositorioNoticias->umaCategoria($_POST['Categoria']);
+        $noticiaEditada = new Noticia($id, new Categoria($categoria->id(), $categoria->categoria()), $_POST['titulo'], $_POST['conteudo'], $noticia->dataPublicacaoPadrao());
+        $noticiaSalva = $repositorioNoticias->salvarNoticia($noticiaEditada);
 
-    ?>
-    <?php if ($noticiaSalva == FALSE) : ?>
-        <script>window.alert('JÁ EXIESTE ESSA NOTICIA CADASTRADA');</script>
+        ?>
+        <?php if ($noticiaSalva == FALSE) : ?>
+            <script>window.alert('JÁ EXIESTE ESSA NOTICIA CADASTRADA');</script>
+        <?php else : ?>
+            <?php header('location: index.php'); ?>
+        <?php endif ?>
     <?php else : ?>
-        <?php header('location: index.php'); ?>
+        <script>window.alert('Apenas o autor ou um usuário adm podem editar a noticia');</script>
     <?php endif ?>
 <?php endif ?>
 <!DOCTYPE html>
