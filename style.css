@@ -18,14 +18,14 @@ body {
 }
 
 .cabecalho h1 {
-    padding-right: 120px;
+    padding-right: 110px;
     padding-left: 30px;
     font-size: 20px;
     display: inline;
 }
 
 .logo {
-    width: 10%;
+    width: 5%;
     display: inline-block;
 }
 
@@ -33,7 +33,7 @@ body {
     position: relative;
     display: block;
     text-align: right;
-    margin-right: 100px;
+    margin-right: 140px;
 }
 
 .cabecalho input {

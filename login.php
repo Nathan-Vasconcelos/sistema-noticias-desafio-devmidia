@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login</title>
 </head>
 <body>
-    <header class="cabecalho"><h1><img src="https://imgs.search.brave.com/75uk1O7iw7k1WkwUlrEVxhB7Dv5jooCt2Rc9-F2XZu8/rs:fit:1200:419:1/g:ce/aHR0cDovL3d3dy5k/ZXZtZWRpYS5jb20u/YnIvam9pbi9pbWFn/ZXMvbG9nby1kZXZt/ZWRpYS5wbmc" alt="logo" class="logo" style="padding-top: 12px; padding-bottom: 35px;"></h1></header>
+    <header class="cabecalho"><h1><img src="img/noticia.png" alt="logo" class="logo" style="padding-top: 12px; padding-bottom: 35px;"></h1></header>
     <main>
         <section class="form-login">
             <form action="" method="post">
