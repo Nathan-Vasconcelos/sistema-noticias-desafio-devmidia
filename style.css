@@ -212,6 +212,7 @@ main {
     margin-right: 20px;
     position: relative;
     text-align: center;
+    box-shadow: 0px 0px 20px rgb(174, 173, 173);
 }
 
 .caixa-categoria h2 {
@@ -391,7 +392,7 @@ td button:hover {
     top: 50px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
     main, footer, .caixa-noticia, .form-cadastro input, .form-cadastro select, .conteudo-excluir {
         width: auto;
     }
@@ -410,6 +411,10 @@ td button:hover {
 
     .cabecalho a {
         display: block;
+    }
+
+    .form-cadastro {
+        margin-left: 10%;
     }
 
     .form-cadastro textarea {
@@ -462,5 +467,31 @@ td button:hover {
 
     .tabela-usuarios-sem-noticias {
         margin-bottom: 15em;
+    }
+
+    .form-login {
+        margin-bottom: 8em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .caixa-noticia {
+        margin-left: 30%;
+        
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .caixa-noticia {
+        margin-left: 20%;
+    }
+
+    .form-cadastro {
+        margin-left: 6%;
+    }
+
+    .caixa-categoria h2 {
+        padding-top: 0.5em;
+        padding-bottom: 1em;
     }
 }
