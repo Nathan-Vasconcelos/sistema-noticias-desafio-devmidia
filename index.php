@@ -15,19 +15,14 @@ $repositorioNoticias = new RepositorioNoticias($conexao);
 $repositorioUsuarios = new RepositorioUsuarios($conexao);
 
 if (isset($_GET['busca']) and $_GET['busca'] != '') {
-    //implementar validações
     $noticias = $repositorioNoticias->pesquisarNoticia($_GET['busca']);
-} /*else {
-    $noticias = $repositorioNoticias->todasAsNoticias();
-}*/
+}
 
 if (isset($_SESSION['TOKEN']) and isset($_GET['usuario'])) {
     $repositorioUsuarios->autenticarToken($_SESSION['TOKEN']);
     $noticias = $repositorioNoticias->noticiasDoUsuario($_GET['usuario']);
-} /*else {
-    //header('location: login.php');
-    $noticias = $repositorioNoticias->todasAsNoticias();
-}*/
+}
+
 if (!isset($_GET['busca']) and !isset($_GET['usuario'])) {
     $noticias = $repositorioNoticias->todasAsNoticias();
 }
