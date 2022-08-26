@@ -25,15 +25,20 @@ if (isset($_SESSION['TOKEN'])) {
 }
 
 $controleUsuario = new ControleUsuario($_SESSION['TOKEN'], $repositorioUsuarios);
-$controleUsuario->somenteAdm();
+//$controleUsuario->somenteAdm();
+$autorizado = $controleUsuario->negarParaRedator();
 
 ?>
 <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
-    <?php $noticiaRemovida = $repositorioNoticias->removeNoticia($_POST['id']); ?>
-    <?php if ($noticiaRemovida  == FALSE) : ?>
-        <script>window.alert('OCORREU UM PROBLEMA AO TENTAR REMOVER A NOTICIA');</script>
+    <?php if ($autorizado) : ?>
+        <?php $noticiaRemovida = $repositorioNoticias->removeNoticia($_POST['id']); ?>
+        <?php if ($noticiaRemovida  == FALSE) : ?>
+            <script>window.alert('OCORREU UM PROBLEMA AO TENTAR REMOVER A NOTICIA');</script>
+        <?php else : ?>
+            <?php header('location: index.php'); ?>
+        <?php endif ?>
     <?php else : ?>
-        <?php header('location: index.php'); ?>
+        <script>window.alert('Apenas um usuário com perfil adm pode excluir notícias');</script>
     <?php endif ?>
 <?php endif ?>
 <!DOCTYPE html>

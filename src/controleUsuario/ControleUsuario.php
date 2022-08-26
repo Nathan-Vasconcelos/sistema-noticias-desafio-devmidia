@@ -10,12 +10,12 @@ class ControleUsuario
     {
         $this->token = $token;
         $this->repositorio = $repositorio;
-        //$this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
+        $this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
     }
 
     public function somenteAdm()
     {
-        $this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
+        //$this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
 
         if ($this->usuario->idPerfil() === 1) {
             return True;
@@ -26,7 +26,7 @@ class ControleUsuario
 
     public function admEredator()
     {
-        $this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
+        //$this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
 
         if ($this->usuario->idPerfil() === 1 or $this->usuario->idPerfil() === 2) {
             return True;
@@ -47,9 +47,18 @@ class ControleUsuario
 
     public function apenasAdmEAltor($idUsuarioNoticia)
     {
-        $this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
+        //$this->usuario = $this->repositorio->buscarUsuarioPorToken($this->token);
 
         if ($this->usuario->id() === $idUsuarioNoticia or $this->usuario->idPerfil() === 1) {
+            return True;
+        } else {
+            return False;
+        }
+    }
+
+    public function negarParaRedator()
+    {
+        if ($this->usuario->idPerfil() === 1) {
             return True;
         } else {
             return False;
